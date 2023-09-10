@@ -1,7 +1,7 @@
 import express from 'express';
 import configViewEngine from './config/viewEngine.mjs';
-import initWebRoute from './route/web.js';
-// import connection from './config/connectBD.js';
+
+import connection from './config/connectBD.js';
 import initAPIRoute from './route/api.js';
 // const port = process.env.PORT||3000
 const app = express();
@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 // set up view engine 
 configViewEngine(app);
 // innit wed router
- initWebRoute(app);
+//  initWebRoute(app);
 // khoit taoj api
 initAPIRoute(app);
 app.listen(port, () => {
