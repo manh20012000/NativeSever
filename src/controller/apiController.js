@@ -1,62 +1,35 @@
 import pool from "../config/connectBD.js";
 
-let getAllUser=async(req,res)=>{
-   const [rows,fields] = await pool.execute( 'SELECT * FROM `user` ')
-      return res.status(200).json({
-         message:'oki',
-         data:rows
-      })
-      //hahahahha
+
+let login = async (req, res) => {
+   console.log(req.body.taikhoan, req.body.matkhau)
+   try {
+      const user = await pool.execute('select taikhoan,matkhau from login where taikhoan=? and matkhau=?', [req.body.taikhoan, req.body.matkhau]);
+      if (user[0].length > 0) {
+         console.log(user[0])
+         return res.status(200).json({ data: user[0], msg: "OK", status: 200 })
+      } else {
+         return res.status(400).json({ msg: "Wrong username or password", status: 400 })
+      }
+   } catch (error) {
+      console.log(error)
+      return res.status(500).json('loi')
+   }
+
 }
-let createNewUser = async(req,res)=>{
-   // console.log("check req",req.body);
-   //fistName,lastName,Email,Adress phair gioongs teen ben file index
-   await pool.execute('insert into user(fistname,lastname,email,adress) values(?,?,?,?)',[fistname,lastname,email,adress])
+let Sigin = async (req, res) => {
+         console.log(req.body.taikhoan, req.body.matkhau, req.body.email)
+   try {
     
-   
-   return res.status(200).json({
-      message:'oki',
-   
-   })
+      const user = await pool.execute('insert into login(taikhoan,matkhau,email) value(?,?,?)', [req.body.taikhoan, req.body.matkhau, req.body.email]);
+      return res.status(200).json({ data: user[0], msg: "OK", status: 200 })
+   }
+   catch (error) {
+      return res.status(500).json('loi')
+   }
+
+
 }
-
-let updateUser=async(req,res)=>{
- let {fistname,lastname,email,adress,id}=req.body;
- 
-   if(!fistname||!lastname||!email||!adress||!id){ // thêm dấu chấn than thí nếu mà cái đó bằng rong ,null,udifine thì thêm dấu chấm than là true 
-      return res.status(200).json({
-         message:'missing required params',
-      
-      })
-     }
-    await pool.execute('update user set fistname=?, lastname=?,email=?,adress=? where id=?',[fistname,lastname,email,adress,id]);
-
-   return res.status(200).json({
-      message:'oki',
-   
-   })
+export default {
+   login, Sigin
 }
-let deleteUser=async(req,res)=>{
-   let userId=req.params.id;
-   if(!userId){ // thêm dấu chấn than thí nếu mà cái đó bằng rong ,null,udifine thì thêm dấu chấm than là true 
-      return res.status(200).json({
-         message:'missing required params',
-      
-      })
-     }
-
-
-   await pool.execute('delete from user where id=?',[userId]);
-
-
-   return res.status(200).json({
-      message:'oki',
-   
-   })
-}
-export default {// expo để viết chạy nhìu phần tử cubgf lúc
-   getAllUser, createNewUser,updateUser,deleteUser
-}
-// module.exports={
-//     getAllUser
-// }

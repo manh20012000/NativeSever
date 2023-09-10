@@ -11,11 +11,9 @@ let router =express.Router();// khai báo  giúp express hiểu khai báo đươ
 // bước sau
 
 const initAPIRoute=(app)=>{
-    router.get('/users',apiController.getAllUser );// method =gGET tuowng duowng RREAD data
-    router.post('/createUser',apiController.createNewUser)// methob POST 
-     router.put('/updateUser',apiController.updateUser)
-     router.delete('/deleteUser/:id',apiController.deleteUser)
-    return app.use('/api/v1/',router)
+     router.post('/login',apiController.login)
+     router.post('/sigin',apiController.Sigin)
+    return app.use('/api/',router)
     //('/', cái này có thể thêm /abc ... để thêm tiền tố cho wed api( '/api/vesion',routet)
     
 }
