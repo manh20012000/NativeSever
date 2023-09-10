@@ -7,7 +7,10 @@ import initAPIRoute from './route/api.js';
 const app = express();
 const port = 8080
 app.use(express.json());
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
+app.get("/", (req, res) => {
+    res.send("server is running")
+})
 //config gữi đa ta client lên sever và lấy 1 cách đơ giản 
 
 // set up view engine 
