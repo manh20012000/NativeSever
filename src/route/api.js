@@ -1,6 +1,8 @@
 import express from "express";
  import apiController from "../controller/apiController.js";
-
+import multer from "multer";
+import path from 'path';
+import appRoot from 'app-root-path';
 let router =express.Router();// khai báo  giúp express hiểu khai báo đươcngf link trên web 
 
 // bước đầu

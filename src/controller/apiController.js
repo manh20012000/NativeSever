@@ -4,7 +4,7 @@ import pool from "../config/connectBD.js";
 let login = async (req, res) => {
    console.log(req.body.taikhoan, req.body.matkhau)
    try {
-      const user = await pool.execute('select taikhoan,matkhau from user where taikhoan=? and matkhau=?', [req.body.taikhoan, req.body.matkhau]);
+      const user = await pool.execute('select taikhoan,matkhau from Login where taikhoan=? and matkhau=?', [req.body.taikhoan, req.body.matkhau]);
       if (user[0].length > 0) {
          console.log(user[0])
          return res.status(200).json({ data: user[0], msg: "OK", status: 200 })
@@ -18,16 +18,16 @@ let login = async (req, res) => {
 
 }
 let Sigin = async (req, res) => {
-         console.log(req.body.taikhoan, req.body.matkhau, req.body.email)
+         console.log(req.body.taikhoan, req.body.matkhau, req.body.email,)
    try {
-      const user = await pool.execute('insert into user(taikhoan,matkhau,email) value(?,?,?)', [req.body.taikhoan, req.body.matkhau, req.body.email]);
+      const user = await pool.execute('insert into Login(email,phone,name,birth,gender,taikhoan,avata,matkhau,) value(?,?,?,?,?,?,?,?)',
+         [ req.body.email, req.body.phone, req.body.name,req.body.birth, req.body.gender,req.body.taikhoan, req.body.avata, req.body.matkhau]);
+        
       return res.status(200).json({ data: user[0], msg: "OK", status: 200 })
    }
    catch (error) {
       return res.status(500).json('loi')
    }
-
-
 }
 export default {
    login, Sigin

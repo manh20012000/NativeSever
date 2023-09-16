@@ -1,6 +1,6 @@
 import express from 'express';
 import configViewEngine from './config/viewEngine.mjs';
-
+import multer from 'multer';
 import connection from './config/connectBD.js';
 import initAPIRoute from './route/api.js';
 // const port = process.env.PORT||3000
