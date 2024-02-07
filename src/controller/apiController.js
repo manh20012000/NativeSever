@@ -15,7 +15,6 @@ let login = async (req, res) => {
       console.log(error)
       return res.status(500).json('loi')
    }
-
 }
 let Sigin = async (req, res) => {
          // console.log(req.body.taikhoan, req.body.matkhau, req.body.email,)
